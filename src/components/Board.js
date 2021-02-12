@@ -14,9 +14,13 @@ const StyledBoard = styled.div`
 const Board = (props) => {
   const [grid, setGrid] = useState(createBoard());
 
-  console.log(grid);
-
-  return <StyledBoard>Hello</StyledBoard>;
+  return (
+    <StyledBoard>
+      {grid.map((row, i) => 
+        row.map((tile, y) => 
+          <Tile tile={tile} id={`${i}${y}`} key={`${i}${y}`} />))}
+    </StyledBoard>
+  );
 };
 
 function createBoard() {
