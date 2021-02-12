@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
+import Tile from "./Tile";
 
 const StyledBoard = styled.div``;
 
