@@ -8,9 +8,11 @@ const StyledTile = styled.div`
 `;
 
 const Tile = (props) => {
-  const handleClick = () => {
+  const handleClick = (e) => {
     const [x, y] = props.id.split("");
-    console.log(x, y)
+    props.setGrid(x, y);
+
+    e.target.innerText = "X"
   }
 
   return (
