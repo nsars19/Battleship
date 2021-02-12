@@ -14,6 +14,13 @@ const StyledBoard = styled.div`
 const Board = (props) => {
   const [grid, setGrid] = useState(createBoard());
 
+  const modifyGrid = (x, y) => {
+    let updatedGrid = grid;
+    updatedGrid[x][y] = "X";
+
+    setGrid(updatedGrid);
+  };
+
   return (
     <StyledBoard>
       {grid.map((row, i) => 
