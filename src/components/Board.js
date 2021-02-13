@@ -23,9 +23,17 @@ const Board = (props) => {
 
   return (
     <StyledBoard>
-      {grid.map((row, i) => 
-        row.map((tile, y) => 
-          <Tile tile={tile} id={`${i}${y}`} key={`${i}${y}`} />))}
+      {grid.map((row, x) =>
+        row.map((tile, y) => (
+          <Tile
+            tile={tile}
+            id={`${x}${y}`}
+            key={`${x}${y}`}
+            grid={grid}
+            setGrid={modifyGrid}
+          />
+        ))
+      )}
     </StyledBoard>
   );
 };
