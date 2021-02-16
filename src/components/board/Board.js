@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
-import Tile from "./Tile";
+import Tile from "../tile/Tile";
 
 const StyledBoard = styled.div`
   height: 400px;

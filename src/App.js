@@ -1,5 +1,5 @@
-import Board from "./components/Board";
-import Ship from "./components/Ship";
+import Board from "./components/board/Board";
+import Ship from "./components/ship/Ship";
 import styled from "styled-components";
 
 const ShipWrap = styled.div`
