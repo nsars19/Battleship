@@ -52,6 +52,10 @@ const Board = (props) => {
     }
   };
 
+  const changeShipDirection = (e) => {
+    
+  };
+
   return (
     <StyledBoard>
       {grid.map((row, y) =>
@@ -63,6 +67,7 @@ const Board = (props) => {
             grid={grid}
             setGrid={modifyGrid}
             onDrop={placeShip}
+            onDoubleClick={changeShipDirection}
           />
         ))
       )}
