@@ -1,18 +1,19 @@
-import styled from "styled-components";
-
-const StyledShip = styled.div`
-  height: ${(props) => 40 * parseInt(props.length)}px;
-  width: 40px;
-  background: #222;
-`;
+import StyledShip from "./StyledShip";
 
 const Ship = (props) => {
   const handleDrag = (e) => {
-    console.log(e);
+    e.dataTransfer.dropEffect = "move";
+    e.dataTransfer.setData("id", e.target.id);
+    e.dataTransfer.setData("length", props.length);
   };
 
   return (
-    <StyledShip length={props.length} draggable={true} onDrag={handleDrag} />
+    <StyledShip
+      length={props.length}
+      draggable={true}
+      onDragStart={handleDrag}
+      id={props.id}
+    />
   );
 };
 
