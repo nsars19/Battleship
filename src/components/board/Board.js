@@ -21,6 +21,33 @@ const Board = (props) => {
     setGrid(updatedGrid);
   };
 
+  const placeShip = (e, direction = "vertical") => {
+    const [x, y] = e.target.id.split("");
+    const length = parseInt(e.dataTransfer.getData("length"));
+
+    switch (direction) {
+      case "horizontal":
+        console.log({ x, y, length, direction });
+        break;
+      default:
+        // defaults to vertical
+        for (let i = 0; i < length; i++) {
+          let tile = document.getElementById(`${x}${y - i}`);
+          
+          if (tile) {
+            tile.style.background = "#222";
+            modifyGrid(x, y - i);
+          } else {
+            let diff = length - i;
+            tile = document.getElementById(`${x}${parseInt(y) + diff}`);
+            tile.style.background = "#222";
+            modifyGrid(x, parseInt(y) + diff);
+          }
+        }
+        break;
+    }
+  };
+
   return (
     <StyledBoard>
       {grid.map((row, x) =>
