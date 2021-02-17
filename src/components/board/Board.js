@@ -19,6 +19,19 @@ const Board = (props) => {
     switch (direction) {
       case "horizontal":
         console.log({ x, y, length, direction });
+        for (let i = 0; i < length; i++) {
+          let tile = document.getElementById(`${x - i}${y}`);
+          
+          if (tile) {
+            tile.style.background = "#222";
+            modifyGrid(x - i, y);
+          } else {
+            let diff = length - i;
+            tile = document.getElementById(`${parseInt(x) + diff}${y}`);
+            tile.style.background = "#222";
+            modifyGrid(parseInt(x) + diff, y);
+          }
+        }
         break;
       default:
         // defaults to vertical
