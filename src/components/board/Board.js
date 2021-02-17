@@ -50,8 +50,8 @@ const Board = (props) => {
 
   return (
     <StyledBoard>
-      {grid.map((row, x) =>
-        row.map((tile, y) => (
+      {grid.map((row, y) =>
+        row.map((tile, x) => (
           <Tile
             tile={tile}
             id={`${x}${y}`}
