@@ -58,6 +58,7 @@ const Board = (props) => {
             key={`${x}${y}`}
             grid={grid}
             setGrid={modifyGrid}
+            onDrop={placeShip}
           />
         ))
       )}
