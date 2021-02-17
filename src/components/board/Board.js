@@ -18,7 +18,6 @@ const Board = (props) => {
 
     switch (direction) {
       case "horizontal":
-        console.log({ x, y, length, direction });
         for (let i = 0; i < length; i++) {
           let tile = document.getElementById(`${x - i}${y}`);
           
