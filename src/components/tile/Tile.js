@@ -1,23 +1,25 @@
-import styled from "styled-components";
-
-const StyledTile = styled.div`
-  display: grid;
-  place-items: center;
-  background: #78f;
-  border: 1px solid #2223;
-`;
+import StyledTile from "./StyledTile";
 
 const Tile = (props) => {
   const handleClick = (e) => {
     const [x, y] = props.id.split("");
     props.setGrid(x, y);
+  };
 
-    e.target.innerText = "X"
-  }
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
 
   return (
-    <StyledTile onClick={handleClick}>{props.tile}</StyledTile>
-  )
+    <StyledTile
+      onClick={handleClick}
+      onDrop={props.onDrop}
+      onDragOver={handleDragOver}
+      id={props.id}
+    >
+      {props.tile}
+    </StyledTile>
+  );
 };
 
 export default Tile;
