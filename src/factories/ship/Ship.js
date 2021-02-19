@@ -20,6 +20,7 @@ const ShipFactory = (coords) => {
     isSunk,
     length: () => coords.length,
     hit: (hitCoord) => hitCoords.push(hitCoord),
+    hitCoords: () => hitCoords,
   };
 };
 
