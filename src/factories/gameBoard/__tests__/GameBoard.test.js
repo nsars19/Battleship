@@ -34,4 +34,15 @@ describe("GameBoard", () => {
     board.receiveAttack([2, 6]);
     expect(board.allSunk()).toBe(true);
   });
+
+  it("returns ship objects", () => {
+    const board = GameBoard();
+    board.placeShip([0, 0], [1, 0]);
+
+    const coords = [
+      [0, 0],
+      [1, 0],
+    ];
+    expect(board.getShips()[0].coords).toEqual(coords);
+  });
 });
