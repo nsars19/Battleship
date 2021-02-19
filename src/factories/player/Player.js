@@ -118,7 +118,7 @@ const Player = (cpu = false) => {
   };
 
   const attack = (coord, board) => {
-    return cpu ? cpuAttack(coord, board) : playerAttack(coord, board);
+    return cpu ? cpuAttack(board) : playerAttack(coord, board);
   };
 
   return {
