@@ -11,8 +11,8 @@ const ShipFactory = (coords) => {
 
     a.sort();
     b.sort();
-    
-    return a.every(coord => b.includes(coord));
+
+    return a.every((coord) => b.includes(coord));
   };
 
   return {
