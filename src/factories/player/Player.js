@@ -14,7 +14,13 @@ const Player = (cpu = false) => {
   };
 
   const generateRandomTile = () => {
-    console.log("random tile");
+    const random = () => Math.floor(Math.random() * 10);
+    let choice = [random(), random()];
+    while (flatList().includes(choice.join(""))) {
+      choice = [random(), random()];
+    }
+
+    return choice;
   };
 
   function getHits(attacks, ships, hits = []) {
