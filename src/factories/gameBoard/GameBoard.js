@@ -3,6 +3,7 @@ import ShipFactory from "./../ship/Ship";
 const GameBoard = () => {
   const grid = buildGrid();
   const misses = [];
+  const ships = [];
 
   function buildGrid() {
     let grid = [];
@@ -35,6 +36,8 @@ const GameBoard = () => {
     // Prevent overlap
     if (spotsTaken(coords)) return false;
 
+    ships.push(ship);
+
     for (let coord of coords) {
       setTile(coord, ship);
     }
@@ -62,6 +65,7 @@ const GameBoard = () => {
     receiveAttack,
     allSunk,
     grid,
+    getShips: () => ships,
     getMisses: () => misses,
   };
 };
