@@ -50,8 +50,8 @@ const Player = (cpu = false) => {
       ship.hitCoords().includes(mostRecentHit)
     )[0];
 
-    if (!mostRecentHit) {
-      generateRandomTile();
+    if (!mostRecentHit || ship.isSunk()) {
+      return generateRandomTile();
     } else {
       let choices = [];
       hits.sort((firstHit, secondHit) => {
