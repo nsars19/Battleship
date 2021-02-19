@@ -94,7 +94,11 @@ const Player = (cpu = false) => {
 
       if (uniqueChoices.length !== 0) {
         // Filter out previous hits
-        return uniqueChoices;
+        return uniqueChoices.filter((coord) => {
+          return (
+            coord[0] >= 0 && coord[1] >= 0 && coord[0] < 10 && coord[1] < 10
+          );
+        });
       } else {
         const [x, y] = hits[0];
         choices.push([x + 1, y], [x - 1, y], [x, y + 1], [x, y - 1]);
