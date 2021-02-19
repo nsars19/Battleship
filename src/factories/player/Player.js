@@ -113,8 +113,12 @@ const Player = (cpu = false) => {
     }
   };
 
-  const cpuAttack = (coord, board) => {
-    playerAttack(coord, board);
+  const cpuAttack = (board) => {
+    const coords = generateTileGuesses(board);
+    const idx = Math.floor(Math.random() * coords.length);
+
+    let chosen = typeof coords[0] === "number" ? coords : coords[idx];
+    playerAttack(chosen, board);
   };
 
   const attack = (coord, board) => {
