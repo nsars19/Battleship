@@ -1,5 +1,6 @@
-const ShipFactory = (coords) => {
+const ShipFactory = (coordsArr) => {
   const hitCoords = [];
+  let coords = coordsArr;
 
   const isSunk = () => {
     if (coords.length !== hitCoords.length) return false;
