@@ -42,7 +42,7 @@ const GameBoard = () => {
       setTile(coord, ship);
     }
 
-    return true;
+    return ship;
   };
   const removeShipFromShips = (ship) => {
     const idx = ships.indexOf(ship);
