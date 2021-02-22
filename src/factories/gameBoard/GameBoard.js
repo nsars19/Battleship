@@ -122,10 +122,8 @@ const GameBoard = () => {
     const newCoords = calculateNewShipCoords(ship);
 
     removeShip(ship);
-    // console.log({ newCoords });
     if (placeShip(...newCoords)) {
       ship.setCoords(newCoords);
-      // console.log({ newCoords: ship.coords });
       return true;
     } else {
       return false;
