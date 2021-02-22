@@ -44,6 +44,84 @@ const GameBoard = () => {
 
     return true;
   };
+  const removeShipFromShips = (ship) => {
+    const idx = ships.indexOf(ship);
+    ships.splice(idx, 1);
+  };
+
+  const removeShipFromGrid = (ship) => {
+    const coords = ship.coords;
+    for (let coord of coords) {
+      const [x, y] = coord;
+      grid[x][y] = undefined;
+    }
+  };
+
+  const removeShip = (ship) => {
+    removeShipFromShips(ship);
+    removeShipFromGrid(ship);
+  };
+
+  const getCurrentDirection = (coords) => {
+    const x = coords[0][0];
+    const y = coords[1][0];
+
+    return x === y ? "vertical" : "horizontal";
+  };
+
+  const getRootCoord = (coords) => {
+    return Object.assign([], coords).sort()[0];
+  };
+
+  const calculateNewShipCoords = (ship) => {
+    const coords = ship.coords;
+    const length = coords.length;
+    const direction = getCurrentDirection(coords);
+    const [x, y] = getRootCoord(coords, direction);
+    const newCoords = [];
+
+    if (direction === "vertical") {
+      // If a new tile will overlap the grid add it to the other side of the
+      // root node instead. Offset distance counts each instance of overlapping
+      // and then uses that value to place overlapping tiles
+      let offset = 0;
+      for (let i = 0; i < length; i++) {
+        if (x + i > 9) {
+          offset += 1;
+          newCoords.push([x - offset, y]);
+        } else {
+          newCoords.push([x + i, y]);
+        }
+      }
+    } else {
+      let offset = 0;
+      for (let i = 0; i < length; i++) {
+        if (y + i > 9) {
+          offset += 1;
+          newCoords.push([x, y - offset]);
+        } else {
+          newCoords.push([x, y + i]);
+        }
+      }
+    }
+
+    return newCoords;
+  };
+
+  const rotateShip = (ship) => {
+    // const ship = getShipByCoord([0, 0]);
+    const newCoords = calculateNewShipCoords(ship);
+
+    removeShip(ship);
+    // console.log({ newCoords });
+    if (placeShip(...newCoords)) {
+      ship.setCoords(newCoords);
+      // console.log({ newCoords: ship.coords });
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   const addMiss = (coord) => misses.push(coord);
 
@@ -61,6 +139,7 @@ const GameBoard = () => {
   };
 
   return {
+    rotateShip,
     placeShip,
     receiveAttack,
     allSunk,
