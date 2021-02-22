@@ -6,12 +6,9 @@ const ShipFactory = (coordsArr) => {
     if (coords.length !== hitCoords.length) return false;
 
     let [a, b] = [
-      coords.map((i) => i.join("")),
-      hitCoords.map((i) => i.join("")),
+      coords.map((i) => i.join("")).sort(),
+      hitCoords.map((i) => i.join("")).sort(),
     ];
-
-    a.sort();
-    b.sort();
 
     return a.every((coord) => b.includes(coord));
   };
