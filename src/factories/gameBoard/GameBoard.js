@@ -30,6 +30,15 @@ const GameBoard = () => {
     return isTaken;
   };
 
+  const getShipByCoord = (coord) => {
+    const [x, y] = coord;
+    const ship = grid[x][y];
+
+    if (!ship) return false;
+
+    return ship;
+  };
+
   const placeShip = (...coords) => {
     const ship = ShipFactory(coords);
 
@@ -139,6 +148,7 @@ const GameBoard = () => {
   };
 
   return {
+    getShipByCoord,
     rotateShip,
     placeShip,
     receiveAttack,
