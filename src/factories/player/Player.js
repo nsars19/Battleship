@@ -100,6 +100,7 @@ const Player = (cpu = false) => {
           );
         });
       } else {
+        // Choosen tile above, below, to the left, or to the right (eg. plus sign)
         const [x, y] = hits[0];
         choices.push([x + 1, y], [x - 1, y], [x, y + 1], [x, y - 1]);
         const filteredChoices = choices.filter((coord) => {
