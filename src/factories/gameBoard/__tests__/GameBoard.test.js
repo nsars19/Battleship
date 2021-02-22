@@ -45,4 +45,38 @@ describe("GameBoard", () => {
     ];
     expect(board.getShips()[0].coords).toEqual(coords);
   });
+
+  it("rotates ships", () => {
+    const board = GameBoard();
+    const ship = board.placeShip([0, 0], [1, 0], [2, 0]);
+
+    board.rotateShip(ship);
+    // console.log(ship.coords);
+    expect(ship.coords).toEqual([
+      [0, 0],
+      [0, 1],
+      [0, 2],
+    ]);
+  });
+
+  it("rotates ships without overlapping grid", () => {
+    const board = GameBoard();
+    let ship = board.placeShip([7, 9], [8, 9], [9, 9]);
+
+    board.rotateShip(ship);
+
+    expect(ship.coords).toEqual([
+      [7, 9],
+      [7, 8],
+      [7, 7],
+    ]);
+  });
+
+  it("rotates ships without overlapping other ships", () => {
+    const board = GameBoard();
+    let ship = board.placeShip([0, 0], [1, 0], [2, 0], [3, 0]);
+    board.placeShip([0, 1], [1, 1]);
+
+    expect(board.rotateShip(ship)).toBe(false);
+  });
 });
