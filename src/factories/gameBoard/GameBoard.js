@@ -8,7 +8,7 @@ const GameBoard = () => {
   function buildGrid() {
     let grid = [];
     for (let i = 0; i < 10; i++) {
-      grid[i] = new Array(10);
+      grid[i] = ["", "", "", "", "", "", "", "", "", ""];
     }
     return grid;
   }
