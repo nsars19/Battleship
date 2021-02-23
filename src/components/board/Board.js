@@ -61,14 +61,14 @@ const Board = ({ gameBoard }) => {
   };
 
   const moveShip = (e) => {
-    const coord = e.dataTransfer
+    const startCoord = e.dataTransfer
       .getData("id")
       .split("")
       .map((i) => parseInt(i));
 
     // length of one indicates shipID, which means it was placed from
     // the 'dock' and not moved from another spot on the board
-    if (coord.length === 1) return true;
+    if (startCoord.length === 1) return true;
 
     const removeID = e.dataTransfer
       .getData("removeShipAt")
