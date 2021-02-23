@@ -132,14 +132,4 @@ const Board = ({ gameBoard }) => {
   );
 };
 
-function createBoard() {
-  let arr = [];
-
-  for (let i = 0; i < 10; i++) {
-    arr[i] = ["", "", "", "", "", "", "", "", "", ""];
-  }
-
-  return arr;
-}
-
 export default Board;
