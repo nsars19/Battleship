@@ -124,6 +124,9 @@ const GameBoard = () => {
   };
 
   const rotateShip = (ship) => {
+    if (ship.coords.length === 1) return true;
+
+    const oldCoords = ship.coords;
     const newCoords = calculateNewShipCoords(ship);
 
     removeShip(ship);
@@ -131,6 +134,7 @@ const GameBoard = () => {
       ship.setCoords(newCoords);
       return true;
     } else {
+      placeShip(...oldCoords);
       return false;
     }
   };
