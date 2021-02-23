@@ -118,7 +118,6 @@ const GameBoard = () => {
   };
 
   const rotateShip = (ship) => {
-    // const ship = getShipByCoord([0, 0]);
     const newCoords = calculateNewShipCoords(ship);
 
     removeShip(ship);
