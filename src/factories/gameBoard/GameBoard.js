@@ -161,6 +161,7 @@ const GameBoard = () => {
     receiveAttack,
     allSunk,
     grid,
+    removeShipFromShips,
     getShips: () => ships,
     getMisses: () => misses,
   };
