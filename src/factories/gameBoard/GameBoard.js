@@ -68,7 +68,7 @@ const GameBoard = () => {
     const coords = ship.coords;
     for (let coord of coords) {
       const [x, y] = coord;
-      grid[x][y] = undefined;
+      grid[x][y] = "";
     }
   };
 
