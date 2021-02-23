@@ -55,7 +55,13 @@ const GameBoard = () => {
   };
   const removeShipFromShips = (ship) => {
     const idx = ships.indexOf(ship);
-    ships.splice(idx, 1);
+
+    if (idx !== -1) {
+      ships.splice(idx, 1);
+      return true;
+    }
+
+    return false;
   };
 
   const removeShipFromGrid = (ship) => {
