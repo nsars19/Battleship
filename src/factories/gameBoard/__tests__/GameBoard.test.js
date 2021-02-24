@@ -113,9 +113,5 @@ describe("GameBoard", () => {
     board.placeShipsRandomly();
 
     expect(board.getShips().length).toBe(7);
-
-    board.getShips().forEach((ship) => {
-      console.log(ship.coords);
-    });
   });
 });
