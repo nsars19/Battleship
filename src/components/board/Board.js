@@ -1,16 +1,21 @@
 import { useState } from "react";
-import Tile from "../tile/Tile";
 import StyledBoard from "./StyledBoard";
+import Controls from "./subcomponents/Controls";
 
-const Board = ({ gameBoard }) => {
-  const [grid, setGrid] = useState(gameBoard.grid);
+const Board = (props) => {
+  const gameBoard = props.gameBoard;
+  const colors = props.colors;
+  const { boardComplete, setBoardComplete } = props.boardStatus;
+  const { shipsPlaced, setShipsPlaced } = props.shipStatus;
   const [activeShip, setActiveShip] = useState(null);
+  let { grid, setGrid } = props.gridState;
+  let lastRemoved = null;
 
-  const modifyGrid = (x, y, id) => {
-    let updatedGrid = grid;
-    updatedGrid[x][y] = id;
-    setGrid(updatedGrid);
-  };
+  if (props.isPC) {
+    grid = props.gridState.pcGrid;
+    setGrid = props.gridState.setPcGrid;
+    console.log({ gridState: grid, gameBoard: gameBoard.grid });
+  }
 
   const colorTiles = (coords, color) => {
     coords.forEach((coord) => {
@@ -18,6 +23,11 @@ const Board = ({ gameBoard }) => {
       const tile = document.getElementById(id);
       tile.style.backgroundColor = color;
     });
+  };
+
+  const placeShipObject = (ship) => {
+    const newShip = gameBoard.placeShip(...ship.coords);
+    colorTiles(newShip.coords, colors.backMain);
   };
 
   const placeShip = (e) => {
@@ -35,13 +45,17 @@ const Board = ({ gameBoard }) => {
       }
     }
 
-    const ship = gameBoard.placeShip(...coords);
-    if (ship) {
-      colorTiles(coords, "#222");
+    const newShip = gameBoard.placeShip(...coords);
+    if (newShip) {
+      colorTiles(coords, colors.backMain);
+    } else {
+      return false;
     }
 
     setGrid(gameBoard.grid);
-    setActiveShip(ship);
+    setActiveShip(newShip);
+
+    return true;
   };
 
   const changeShipDirection = (e) => {
@@ -51,13 +65,25 @@ const Board = ({ gameBoard }) => {
     if (!ship) return false;
 
     const firstCoords = Object.assign([], ship.coords);
-    colorTiles(firstCoords, "#78f");
+    colorTiles(firstCoords, colors.accent);
     if (gameBoard.rotateShip(ship)) {
-      colorTiles(ship.coords, "#222");
+      colorTiles(ship.coords, colors.backMain);
       setGrid(gameBoard.grid);
     } else {
-      colorTiles(firstCoords, "#222");
+      colorTiles(firstCoords, colors.backMain);
     }
+  };
+
+  const rotateShip = () => {
+    if (!activeShip) return;
+
+    const info = {
+      target: {
+        id: activeShip.coords[0].join(""),
+      },
+    };
+
+    changeShipDirection(info);
   };
 
   const moveShip = (e) => {
@@ -79,6 +105,7 @@ const Board = ({ gameBoard }) => {
     if (isNaN(removeID[0])) return false;
     const shipToRemove = gameBoard.getShipByCoord(removeID);
     const removeCoords = shipToRemove.coords;
+    lastRemoved = shipToRemove;
 
     // Remove ship from ships array
     gameBoard.removeShipFromShips(shipToRemove);
@@ -90,14 +117,17 @@ const Board = ({ gameBoard }) => {
     });
 
     // Change tile color back to empty color
-    colorTiles(removeCoords, "#78f");
+    colorTiles(removeCoords, colors.accent);
 
     return true;
   };
 
   const handleDrop = (e) => {
     if (moveShip(e)) {
-      placeShip(e);
+      if (!placeShip(e)) {
+        placeShipObject(lastRemoved);
+        lastRemoved = null;
+      }
     }
   };
 
@@ -112,24 +142,69 @@ const Board = ({ gameBoard }) => {
     e.dataTransfer.setData("removeShipAt", id);
   };
 
-  return (
-    <StyledBoard>
-      {grid.map((row, y) =>
-        row.map((tile, x) => (
-          <Tile
-            id={`${x}${y}`}
-            key={`${x}${y}`}
-            grid={grid}
-            setGrid={modifyGrid}
-            onDrop={handleDrop}
-            onDoubleClick={changeShipDirection}
-            getShip={gameBoard.getShipByCoord}
-            handleDrag={handleDrag}
-          />
-        ))
-      )}
-    </StyledBoard>
-  );
+  const shuffle = () => {
+    // Remove ship coloring
+    gameBoard.grid.forEach((row, y) => {
+      row.forEach((tile, x) => {
+        colorTiles([[x, y]], colors.accent);
+      });
+    });
+
+    // Place ships
+    gameBoard.placeShipsRandomly();
+    setShipsPlaced(true);
+    setGrid(gameBoard.grid);
+
+    // Add color to ships
+    const ships = gameBoard.getShips();
+    ships.forEach((ship) => {
+      colorTiles(ship.coords, colors.backMain);
+    });
+  };
+
+  const board = () => {
+    return (
+      <StyledBoard>
+        {grid.map((row, x) =>
+          row.map((tile, y) => (
+            <div
+              style={{
+                background: tile ? colors.backMain : colors.accent,
+                border: "1px solid #2223",
+                borderRadius: "3px",
+              }}
+              id={`${x}${y}`}
+              key={`${x}${y}`}
+              onClick={(e) => console.log(e.target.id)}
+              onDoubleClick={changeShipDirection}
+              draggable={true}
+              onDrop={handleDrop}
+              onDragStart={handleDrag}
+              onDragOver={(e) => {
+                e.preventDefault();
+              }}
+            />
+          ))
+        )}
+      </StyledBoard>
+    );
+  };
+
+  if (props.isPC) {
+    return board();
+  } else {
+    return (
+      <>
+        <Controls
+          rotateShip={rotateShip}
+          shuffle={shuffle}
+          shipStatus={shipsPlaced}
+          boardStatus={{ boardComplete, setBoardComplete }}
+        />
+        {board()}
+      </>
+    );
+  }
 };
 
 export default Board;
