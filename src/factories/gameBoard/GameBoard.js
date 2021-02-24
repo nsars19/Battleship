@@ -154,7 +154,49 @@ const GameBoard = () => {
       .every((ship) => ship.isSunk());
   };
 
+  const generatePositions = (length) => {
+    const random = () => Math.floor(Math.random() * 10);
+    const vertical = random() >= 5 ? true : false;
+    let x = random();
+    let y = random();
+    let coords = [];
+
+    let offset = 0;
+    for (let i = 0; i < length; i++) {
+      if (vertical) {
+        if (y + i > 9) {
+          offset += 1;
+          coords.push([x, y - offset]);
+        } else {
+          coords.push([x, y + i]);
+        }
+      } else {
+        if (x + i > 9) {
+          offset += 1;
+          coords.push([x - offset, y]);
+        } else {
+          coords.push([x + i, y]);
+        }
+      }
+    }
+
+    while (spotsTaken(coords)) {
+      coords = generatePositions(length);
+    }
+    return coords;
+  };
+
+  const placeShipsRandomly = () => {
+    const lengths = [1, 1, 2, 2, 3, 4, 5];
+    for (let length of lengths) {
+      const coords = generatePositions(length);
+      placeShip(...coords);
+    }
+  };
+
   return {
+    placeShipsRandomly,
+    generatePositions,
     getShipByCoord,
     rotateShip,
     placeShip,
