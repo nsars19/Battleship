@@ -79,4 +79,43 @@ describe("GameBoard", () => {
 
     expect(board.rotateShip(ship)).toBe(false);
   });
+
+  it("generates legal positions to place ships", () => {
+    const board = GameBoard();
+    const coords = board.generatePositions(3);
+
+    coords.forEach((coord) => {
+      const [x, y] = coord;
+      expect(x).toBeLessThanOrEqual(9);
+      expect(x).toBeGreaterThanOrEqual(0);
+      expect(y).toBeLessThanOrEqual(9);
+      expect(y).toBeGreaterThanOrEqual(0);
+    });
+  });
+
+  it("places ships only in spaces where not other ships are", () => {
+    const board = GameBoard();
+
+    for (let i = 0; i < 10; i++) {
+      board.placeShip([i, 0], [i, 1], [i, 2], [i, 3], [i, 4]);
+    }
+
+    let coords = board.generatePositions(5);
+
+    coords.forEach((coord) => {
+      const y = coord[1];
+      expect(y).toBeGreaterThan(4);
+    });
+  });
+
+  it("places seven ships randomly on the board", () => {
+    const board = GameBoard();
+    board.placeShipsRandomly();
+
+    expect(board.getShips().length).toBe(7);
+
+    board.getShips().forEach((ship) => {
+      console.log(ship.coords);
+    });
+  });
 });
