@@ -1,16 +1,15 @@
 import StyledControls from "./StyledControls";
 import rotateIcon from "./assets/rotate.webp";
 
-const Controls = (props) => {
-  const { boardComplete, setBoardComplete } = props.boardStatus;
-  const shipsPlaced = props.shipStatus;
+const Controls = ({ boardStatus, shipsPlaced, rotateShip, shuffle }) => {
+  const { boardComplete, setBoardComplete } = boardStatus;
 
   return (
     <StyledControls>
-      <button onClick={props.rotateShip}>
+      <button onClick={rotateShip}>
         <img src={rotateIcon} alt={"rotate ship"} />
       </button>
-      <button onClick={props.shuffle}>Place Ships</button>
+      <button onClick={shuffle}>Place Ships</button>
       <button
         onClick={() => {
           console.log({ boardComplete, shipsPlaced });
