@@ -5,7 +5,11 @@ const Controls = ({ boardStatus, shipsPlaced, rotateShip, shuffle }) => {
   const { boardComplete, setBoardComplete } = boardStatus;
 
   return (
-    <StyledControls>
+    <StyledControls
+      style={{
+        display: boardComplete ? "none" : "flex",
+      }}
+    >
       <button onClick={rotateShip}>
         <img src={rotateIcon} alt={"rotate ship"} />
       </button>
