@@ -163,13 +163,19 @@ const Board = (props) => {
   };
 
   const board = () => {
+    const pc = props.isPC;
+
     return (
       <StyledBoard>
         {grid.map((row, x) =>
           row.map((tile, y) => (
             <div
               style={{
-                background: tile ? colors.backMain : colors.accent,
+                background: pc
+                  ? colors.accent
+                  : tile
+                  ? colors.backMain
+                  : colors.accent,
                 border: "1px solid #2223",
                 borderRadius: "3px",
               }}
