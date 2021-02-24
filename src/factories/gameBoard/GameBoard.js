@@ -13,6 +13,14 @@ const GameBoard = () => {
     return grid;
   }
 
+  const clearGrid = () => {
+    grid.forEach((row, y) => {
+      row.forEach((_, x) => {
+        grid[x][y] = "";
+      });
+    });
+  };
+
   const setTile = ([x, y], ship) => {
     if (!grid[x][y]) grid[x][y] = ship;
   };
@@ -186,7 +194,15 @@ const GameBoard = () => {
     return coords;
   };
 
+  const clearShips = () => {
+    while (ships.length) {
+      ships.pop();
+    }
+  };
+
   const placeShipsRandomly = () => {
+    clearGrid();
+    clearShips();
     const lengths = [1, 1, 2, 2, 3, 4, 5];
     for (let length of lengths) {
       const coords = generatePositions(length);
