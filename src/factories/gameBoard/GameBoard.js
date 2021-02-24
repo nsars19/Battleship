@@ -204,6 +204,7 @@ const GameBoard = () => {
     allSunk,
     grid,
     removeShipFromShips,
+    spotsTaken,
     getShips: () => ships,
     getMisses: () => misses,
   };
