@@ -162,6 +162,21 @@ const Board = (props) => {
     });
   };
 
+  const boardHeader = (name) => {
+    return (
+      <h3
+        style={{
+          fontFamily:
+            "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
+          color: colors.text,
+          textAlign: "center",
+        }}
+      >
+        {name} Board
+      </h3>
+    );
+  };
+
   const board = () => {
     const pc = props.isPC;
 
