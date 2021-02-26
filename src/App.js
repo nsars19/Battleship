@@ -3,8 +3,8 @@ import Player from "./factories/player/Player";
 import Winner from "./components/winner/Winner";
 import { useState } from "react";
 
-let player1 = Player();
-let player2 = Player(true); // PC opponent;
+const player1 = Player();
+const player2 = Player(true); // PC opponent;
 // Set PC players board
 player2.board.placeShipsRandomly();
 
