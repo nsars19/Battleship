@@ -14,7 +14,6 @@ const Board = (props) => {
   if (props.isPC) {
     grid = props.gridState.pcGrid;
     setGrid = props.gridState.setPcGrid;
-    console.log({ gridState: grid, gameBoard: gameBoard.grid });
   }
 
   const colorTiles = (coords, color) => {
