@@ -7,6 +7,7 @@ const StyledBoard = styled.div`
   display: grid;
   grid-template-columns: repeat(10, minmax(5px, 1fr));
   grid-template-rows: repeat(10, minmax(5px, 1fr));
+  transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
 
   @media (min-width: 540px) {
     & {
