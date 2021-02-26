@@ -49,27 +49,3 @@ function App() {
 }
 
 export default App;
-
-const ShipWrap = styled.div`
-  padding: 30px 0;
-  border: 2px solid #00adb5;
-  margin: 10px;
-  width: 400px;
-  display: grid;
-  grid-auto-flow: column;
-  justify-content: space-around;
-`;
-
-const ships = () => {
-  return (
-    <ShipWrap>
-      <Ship length={1} id={1} />
-      <Ship length={1} id={2} />
-      <Ship length={2} id={3} />
-      <Ship length={2} id={4} />
-      <Ship length={3} id={5} />
-      <Ship length={4} id={6} />
-      <Ship length={5} id={7} />
-    </ShipWrap>
-  );
-};
