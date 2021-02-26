@@ -1,5 +1,6 @@
 import Board from "./components/board/Board";
 import Player from "./factories/player/Player";
+import Winner from "./components/winner/Winner";
 import { useState } from "react";
 
 let player1 = Player();
