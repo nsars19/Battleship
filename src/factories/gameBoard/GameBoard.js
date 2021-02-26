@@ -156,10 +156,7 @@ const GameBoard = () => {
   };
 
   const allSunk = () => {
-    return grid
-      .flat()
-      .filter((tile) => tile)
-      .every((ship) => ship.isSunk());
+    return ships.every((ship) => ship.isSunk());
   };
 
   const generatePositions = (length) => {
