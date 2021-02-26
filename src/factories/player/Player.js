@@ -1,6 +1,7 @@
 import GameBoard from "./../gameBoard/GameBoard";
 
 const Player = (cpu = false) => {
+  const board = GameBoard();
   const attackList = [];
   const flatList = () => attackList.flatMap((coord) => coord.join(""));
   const addAttack = (coord) => attackList.push(coord);
@@ -129,7 +130,7 @@ const Player = (cpu = false) => {
   return {
     attack,
     attackList,
-    board: GameBoard(),
+    board,
     generateTileGuesses,
   };
 };
