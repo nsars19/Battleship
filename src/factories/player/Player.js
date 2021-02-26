@@ -124,7 +124,9 @@ const Player = (cpu = false) => {
   };
 
   const attack = (coord, board) => {
-    return cpu ? cpuAttack(board) : playerAttack(coord, board);
+    return cpu
+      ? playerAttack(generateRandomTile(), board)
+      : playerAttack(coord, board);
   };
 
   const clearAttacks = () => {
