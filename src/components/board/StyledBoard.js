@@ -3,6 +3,7 @@ import styled from "styled-components";
 const StyledBoard = styled.div`
   height: 280px;
   width: 280px;
+  border: 1px solid #393e46;
   margin: 15px auto;
   display: grid;
   grid-template-columns: repeat(10, minmax(5px, 1fr));
