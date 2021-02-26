@@ -61,13 +61,6 @@ function App() {
       return;
     }
 
-    const targetCoord = e.target.id.split("").map((i) => parseInt(i));
-    const isPcBoard =
-      e.target.parentElement.attributes["data-is-pc"].value === "true";
-
-    // Return if clicking on own board
-    if (!isPcBoard) return;
-
     // Return if clicking on previously chosen tile
     if (!player1.attack(targetCoord, player2.board)) return;
     setP1Shots([...p1Shots, player1.attackList[player1.attackList.length - 1]]);
