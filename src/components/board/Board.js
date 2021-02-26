@@ -206,7 +206,9 @@ const Board = (props) => {
                   id={`${x}${y}`}
                   key={`${x}${y}`}
                   onClick={props.handleTurn}
-                  onDoubleClick={changeShipDirection}
+                  onDoubleClick={(e) => {
+                    !boardComplete && changeShipDirection(e);
+                  }}
                   draggable={!boardComplete}
                   onDrop={handleDrop}
                   onDragStart={handleDrag}
