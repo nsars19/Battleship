@@ -38,12 +38,22 @@ function App() {
   };
 
   const handleTurn = (e) => {
+    const targetCoord = e.target.id.split("").map((i) => parseInt(i));
+    const isPcBoard =
+      e.target.parentElement.attributes["data-is-pc"].value === "true";
+
+    // Return if clicking on own board
+    if (!isPcBoard) return;
+
+    // Check if game is over
     if (player1.board.allSunk()) {
       setWinner("PC");
+      return;
     }
 
     if (player2.board.allSunk()) {
       setWinner("You");
+      return;
     }
 
     const targetCoord = e.target.id.split("").map((i) => parseInt(i));
