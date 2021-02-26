@@ -25,16 +25,21 @@ function App() {
     miss: "#8a8a8a",
   };
 
-  const resetGame = () => {
-    player1 = Player();
-    player2 = Player(true);
+  const clearState = () => {
+    setWinner(null);
     setGrid(player1.board.grid);
     setPcGrid(player2.board.grid);
     setBoardComplete(false);
     setShipsPlaced(false);
     setP1Shots(player1.attackList);
     setP2Shots(player2.attackList);
-    setWinner(null);
+  };
+
+  const resetGame = () => {
+    player1.reset();
+    player2.reset();
+    player2.board.placeShipsRandomly();
+    clearState();
   };
 
   const handleTurn = (e) => {
