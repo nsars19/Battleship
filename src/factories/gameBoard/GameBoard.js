@@ -207,7 +207,13 @@ const GameBoard = () => {
     }
   };
 
+  const reset = () => {
+    clearGrid();
+    clearShips();
+  };
+
   return {
+    reset,
     placeShipsRandomly,
     generatePositions,
     getShipByCoord,
