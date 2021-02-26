@@ -127,7 +127,19 @@ const Player = (cpu = false) => {
     return cpu ? cpuAttack(board) : playerAttack(coord, board);
   };
 
+  const clearAttacks = () => {
+    while (attackList.length) {
+      attackList.pop();
+    }
+  };
+
+  const reset = () => {
+    clearAttacks();
+    board.reset();
+  };
+
   return {
+    reset,
     attack,
     attackList,
     board,
