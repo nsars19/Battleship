@@ -36,6 +36,12 @@ const GlobalStyle = createGlobalStyle`
     width: 32px;
     background: transparent;
   }
+
+  h3 {
+    font-size: 20px;
+    text-shadow: 1px 1px 2px #111;
+    letter-spacing: 1.3px;
+  }
 `;
 
 export default GlobalStyle;
