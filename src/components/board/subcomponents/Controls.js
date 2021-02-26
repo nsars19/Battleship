@@ -16,7 +16,6 @@ const Controls = ({ boardStatus, shipsPlaced, rotateShip, shuffle }) => {
       <button onClick={shuffle}>Place Ships</button>
       <button
         onClick={() => {
-          console.log({ boardComplete, shipsPlaced });
           if (shipsPlaced) setBoardComplete(true);
         }}
       >
