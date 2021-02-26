@@ -86,58 +86,20 @@ function App() {
     );
   };
 
-  const winnerCard = () => {
-    return (
-      <div
-        style={{
-          height: "100vh",
-          width: "100vw",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <h1
-          style={{
-            color: colors.text,
-            letterSpacing: "1.3px",
-            textShadow: "1px 1px 2px #222",
-            fontSize: "2.5em",
-            marginTop: "90px",
-          }}
-        >
-          {winner}
-          {winner === "PC" ? " wins!" : " win!"}
-        </h1>
-        <button
-          onClick={resetGame}
-          style={{
-            padding: "10px",
-            marginTop: "30px",
-            width: "180px",
-            fontSize: "18px",
-            fontWeight: "bold",
-            letterSpacing: "1.3px",
-          }}
-        >
-          Play Again
-        </button>
-      </div>
-    );
-  };
-
-  if (winner) {
-    return winnerCard();
-  } else if (boardComplete) {
-    return (
-      <div style={{ display: "flex", flexFlow: "row wrap" }}>
-        {board()}
-        {board(true)}
-      </div>
-    );
-  } else {
-    return board();
-  }
+  // Render winner if there is a winner, else render both boards if the player has
+  // set their board, else render just the player's board
+  return (
+    <>
+      {(winner && <Winner winner={winner} resetGame={resetGame} />) ||
+        (boardComplete && (
+          <div style={{ display: "flex", flexFlow: "row wrap" }}>
+            {board()}
+            {board(true)}
+          </div>
+        )) ||
+        board()}
+    </>
+  );
 }
 
 export default App;
