@@ -181,51 +181,63 @@ const Board = (props) => {
     const pc = props.isPC;
 
     return (
-      <StyledBoard>
-        {grid.map((row, x) =>
-          row.map((tile, y) => (
-            <div
-              style={{
-                background: pc
-                  ? colors.accent
-                  : tile
-                  ? colors.backMain
-                  : colors.accent,
-                border: "1px solid #2223",
-                borderRadius: "3px",
-              }}
-              id={`${x}${y}`}
-              key={`${x}${y}`}
-              onClick={(e) => console.log(e.target.id)}
-              onDoubleClick={changeShipDirection}
-              draggable={true}
-              onDrop={handleDrop}
-              onDragStart={handleDrag}
-              onDragOver={(e) => {
-                e.preventDefault();
-              }}
-            />
-          ))
-        )}
-      </StyledBoard>
+      <div style={{ flex: "1 1 auto", marginTop: "15px" }}>
+        {boardHeader(pc ? "PC's" : "My")}
+        <StyledBoard data-is-pc={pc}>
+          {grid.map((row, x) =>
+            row.map((tile, y) => {
+              const shots = props.shots.map((shot) => shot.join(""));
+              const shotTile = shots.includes(`${x}${y}`);
+              return (
+                <div
+                  style={{
+                    border: "1px solid #2223",
+                    background: (function () {
+                      if (shotTile) {
+                        return tile ? colors.hit : colors.miss;
+                      } else if (pc) {
+                        return colors.accent;
+                      } else {
+                        return tile ? colors.backMain : colors.accent;
+                      }
+                    })(),
+                    transition: "background 0.1s ease-in-out",
+                  }}
+                  id={`${x}${y}`}
+                  key={`${x}${y}`}
+                  onClick={props.handleTurn}
+                  onDoubleClick={changeShipDirection}
+                  draggable={!boardComplete}
+                  onDrop={handleDrop}
+                  onDragStart={handleDrag}
+                  onDragOver={(e) => {
+                    e.preventDefault();
+                  }}
+                />
+              );
+            })
+          )}
+        </StyledBoard>
+      </div>
     );
   };
 
-  if (props.isPC) {
-    return board();
-  } else {
-    return (
-      <>
-        <Controls
-          rotateShip={rotateShip}
-          shuffle={shuffle}
-          shipStatus={shipsPlaced}
-          boardStatus={{ boardComplete, setBoardComplete }}
-        />
-        {board()}
-      </>
-    );
-  }
+  const controlProps = {
+    rotateShip,
+    shuffle,
+    shipsPlaced,
+    boardStatus: {
+      boardComplete,
+      setBoardComplete,
+    },
+  };
+
+  return (
+    <>
+      {!props.isPC && <Controls {...controlProps} />}
+      {board()}
+    </>
+  );
 };
 
 export default Board;
